@@ -1,6 +1,7 @@
 package com.springBootProject.todoListApp.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.time.Instant;
@@ -12,7 +13,10 @@ public class TodoItem
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
+    @NotBlank(message = "Description is Required")
     private String description;
+
     private boolean complete;
     private Instant createdDate;
     private Instant modifiedDate;
