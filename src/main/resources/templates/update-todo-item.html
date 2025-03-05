@@ -54,45 +54,29 @@
 <body>
 
 <div class="container">
-    <h1 class="text-center">📝 Todo List</h1>
-    <hr />
+    <div class="col-md-6">
+        <form action="#"
+              th:action="@{/todo/{id}(id=${todo.id})}"
+                th:object="${todo}"
+                method="POST">
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input class="form-control" type="text" th:field="*{description}" id="description" placeholder="Add a Description" />
+            </div>
+            <br />
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" th:checked="${complete}==true" th:field="*{complete}" id="complete" />
+                    Complete
+                </label>
+            </div>
+            <br />
+            <button class="btn btn-danger" type="submit">Update</button>
+            <input type="hidden" th:field="*{createdDate}"/>
+            <input type="hidden" th:field="*{modifiedDate}"/>
+        </form>
 
-    <!-- Add Button -->
-    <div class="btn-add">
-        <button class="btn btn-success"><i class="bi bi-plus-lg"></i> Add New Task</button>
     </div>
-
-    <!-- Table -->
-    <table class="table table-hover table-striped text-center">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Description</th>
-            <th>Complete</th>
-            <th>Created Date</th>
-            <th>Modified Date</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="item:${todoItems}">
-            <td th:text="${item.id}"></td>
-            <td th:text="${item.description}"></td>
-            <td>
-                <span th:if="${item.complete}" class="badge bg-success">✅ Done</span>
-                <span th:unless="${item.complete}" class="badge bg-warning">⏳ Pending</span>
-            </td>
-            <td th:text="${item.createdDate}"></td>
-            <td th:text="${item.modifiedDate}"></td>
-            <td>
-                <div class="action-buttons" >
-                    <a class="btn btn-primary btn-sm" th:href="@{/edit/{id}(id=${item.id})}"><i class="bi bi-pencil-square"></i> Edit</a>
-                    <a class="btn btn-danger btn-sm" th:href="@{/delete/{id}(id=${item.id})}"><i class="bi bi-trash"></i> Delete</a>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
 </div>
 
 <!-- jQuery & Bootstrap Scripts -->
